@@ -18,7 +18,7 @@ try {
     * "Docker" so we can have our own isolated build environment
     */
     node {
-      if (Env.NODE_NAME == "master") {
+      if (env.NODE_NAME == "master") {
         currentBuild.displayName = "DEV"
         currentBuild.description = "Development stages"
       }
