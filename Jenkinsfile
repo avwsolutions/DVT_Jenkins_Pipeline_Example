@@ -27,9 +27,6 @@ try {
         currentBuild.description = "Integration-UAT-Production stages"
       }
       stage ("Build") {
-          steps {
-            echo "Kick-off MVN Build"
-          }
       }
       stage ("Deploy") {
       }
