@@ -27,7 +27,9 @@ try {
         currentBuild.description = "Integration-UAT-Production stages"
       }
       stage "Build"
+      stage "Deploy" 
       stage "Test"
+      stage "Release"
     }
 
 }
