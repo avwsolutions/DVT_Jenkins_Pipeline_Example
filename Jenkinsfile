@@ -26,10 +26,26 @@ try {
         currentBuild.displayName = "TAP"
         currentBuild.description = "Integration-UAT-Production stages"
       }
-      stage "Build"
-      stage "Deploy" 
-      stage "Test"
-      stage "Release"
+      stage ("Build") {
+          step ("Kick-off MVN Build") {
+          }
+      }
+      stage ("Deploy") {
+          step ("Do an actual TIBCO deployment") {
+          }
+      }
+      stage ("Test") {
+          step ("Run some tests, depending on environment") {
+          }
+          if (currentBuild.displayName == "DEV") {
+            step ("Start unit-tests with SOAPui") {
+            }
+          }
+      }
+      stage ("Release") {
+          step ("Store possible shippable product in the Nexus Repository") {
+          }
+      }
     }
 
 }
