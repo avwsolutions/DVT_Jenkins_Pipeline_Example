@@ -27,15 +27,20 @@ try {
         currentBuild.description = "Integration-UAT-Production stages"
       }
       stage ("Build") {
-          steps {
-            echo 'Hello World'
-          }
+        echo "Kick-off MVN Build"
+        sh 'mvn --version'
       }
       stage ("Deploy") {
+        echo "Do an actual TIBCO deployment"
       }
       stage ("Test") {
+        if (currentBuild.displayName == "DEV") {
+          echo "Start unit-tests with SOAPui"
+        }
+      } 
       }
       stage ("Release") {
+        echo "Store possible shippable product in the Nexus Repository"
       }
     }
 
