@@ -38,7 +38,6 @@ try {
           echo "Start unit-tests with SOAPui"
         }
       } 
-      }
       stage ("Release") {
         echo "Store possible shippable product in the Nexus Repository"
       }
