@@ -37,7 +37,6 @@ try {
           }
       }
       stage ("Test") {
-          echo "Run some tests, depending on environment"
           if (currentBuild.displayName == "DEV") {
             steps {
               echo "Start unit-tests with SOAPui"
