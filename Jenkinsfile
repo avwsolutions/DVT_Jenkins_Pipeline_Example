@@ -32,21 +32,10 @@ try {
           }
       }
       stage ("Deploy") {
-          steps {
-            echo "Do an actual TIBCO deployment"
-          }
       }
       stage ("Test") {
-          if (currentBuild.displayName == "DEV") {
-            steps {
-              echo "Start unit-tests with SOAPui"
-            }
-          }
       }
       stage ("Release") {
-          steps {
-            echo "Store possible shippable product in the Nexus Repository"
-          }
       }
     }
 
