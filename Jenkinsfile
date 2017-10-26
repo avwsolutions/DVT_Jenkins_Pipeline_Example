@@ -27,6 +27,9 @@ try {
         currentBuild.description = "Integration-UAT-Production stages"
       }
       stage ("Build") {
+          steps {
+            echo 'Hello World'
+          }
       }
       stage ("Deploy") {
       }
