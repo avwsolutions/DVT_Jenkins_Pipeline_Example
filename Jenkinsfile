@@ -18,6 +18,8 @@ try {
     * "Docker" so we can have our own isolated build environment
     */
     node {
+      currentBuild.displayName = "DEV"
+      currentBuild.description = "Development stages"
       stage "Build"
       stage "Test"
     }
