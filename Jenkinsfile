@@ -38,6 +38,9 @@ try {
           // also available as a Groovy variable—note double quotes for string interpolation
           echo "$USERNAME"
         }
+        withCredentials([string(credentialsId: '123abc', variable: 'mySecretText')]) {
+          sh 'echo $mySecretText > /tmp/mysecret'
+        }
       }
       stage ("Test") {
         if (currentBuild.displayName == "DEV") {
