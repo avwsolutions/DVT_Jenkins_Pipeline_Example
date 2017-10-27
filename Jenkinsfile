@@ -49,6 +49,7 @@ try {
       } 
       stage ("Release") {
         echo "Store possible shippable product in the Nexus Repository"
+        input id: 'Input01', message: 'Are all integration tests successfully finished?', parameters: [booleanParam(defaultValue: false, description: 'This will catch the manual input for approving the integration tests', name: 'intTestStatus')]
       }
     }
 
