@@ -32,6 +32,12 @@ try {
       }
       stage ("Deploy") {
         echo "Do an actual TIBCO deployment"
+        withCredentials([usernamePassword(credentialsId: '7780a8e4-da7d-4144-9636-30609c19f025', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+          // available as an env variable, but will be masked if you try to print it out any which way
+          sh 'echo $PASSWORD'
+          // also available as a Groovy variable—note double quotes for string interpolation
+          echo "$USERNAME"
+        }
       }
       stage ("Test") {
         if (currentBuild.displayName == "DEV") {
