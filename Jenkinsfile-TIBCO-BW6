@@ -1,0 +1,31 @@
+node {
+    // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
+    def server = Artifactory.server "MyjFrog"
+    // Create an Artifactory Maven instance.
+    def rtMaven = Artifactory.newMavenBuild()
+    def buildInfo
+
+    stage('Checkout sources') {
+        checkout poll: false, scm: [$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: 'SVN', depthOption: 'infinity', ignoreExternalsOption: true, local: '.', remote: 'https://tibco-pc/svn/testRepo/Demo']], workspaceUpdater: [$class: 'UpdateUpdater']]
+    }
+
+    stage('Artifactory configuration') {
+        // Tool name from Jenkins configuration
+        rtMaven.tool = "MyLocalMaven"
+        // Set Artifactory repositories for dependencies resolution and artifacts deployment.
+        rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
+        rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
+    }
+
+    stage('Maven build') {
+        buildInfo = rtMaven.run pom: 'trunk/src/Demo.parent/pom.xml', goals: 'clean install'
+    }
+	
+	stage('Run Test') {
+		bat '"C:\\SmartBear\\SoapUI-5.3.0\\bin\\testrunner.bat" -e http://10.0.2.15:1970 trunk\\test\\Demo-soapui-project.xml'
+	}
+	
+    stage('Publish build info') {
+        server.publishBuildInfo buildInfo
+    }
+}
